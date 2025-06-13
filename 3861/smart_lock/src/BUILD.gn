@@ -1,0 +1,23 @@
+static_library("smart_lock") {
+    sources = [
+        "smart_lock.c",
+    ]
+
+    include_dirs = [
+        # include "ohos_init.h" for OpenHarmony5.0+
+        "//commonlibrary/utils_lite/include",
+        # include CMSIS-RTOS API V2 for OpenHarmony5.0+
+        "//kernel/liteos_m/kal/cmsis",
+        # include IoT硬件设备操作接口 for OpenHarmony5.0+：
+        "//base/iothardware/peripheral/interfaces/inner_api",
+        # include HAL接口中的WIFI接口
+        "//foundation/communication/wifi_lite/interfaces/wifiservice",
+        # EasyWiFi模块接口
+        "//applications/sample/wifi-iot/3861/shared_drivers/easy_wifi/src", 
+        # mqtt任务接口
+        "//applications/sample/wifi-iot/3861/shared_drivers/mqtt_task",     
+        # cJSON模块
+        "//third_party/cJSON",
+    ]
+        
+}

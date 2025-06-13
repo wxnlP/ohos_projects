@@ -1,0 +1,66 @@
+ohos_sources = [
+   "mqtt_test.c",
+]
+
+ohos_includes = [
+    "../../src",
+    "../../src/ohos",
+    "../../../MQTTPacket/src",
+]
+
+ohos_cflags = [
+    "-Wno-sign-compare",
+    "-Wno-unused-parameter",
+]
+
+ohos_defines = [
+    "MQTT_TASK",
+    "MQTTCLIENT_PLATFORM_HEADER=mqtt_ohos.h"
+]
+
+if (ohos_kernel_type == "liteos_riscv" || ohos_kernel_type == "liteos_m") {
+    ohos_sources += [
+        "mqtt_test_cmsis.c",
+        "wifiiot_at.c",         # AT接口（1.0+被去掉了，补回来）
+        "hal_wifiiot_at.c",     # AT接口（1.0+被去掉了，补回来）
+    ]
+
+    ohos_includes += [
+        # "//kernel/liteos_m/kal",
+        # "//base/iot_hardware/interfaces/kits/wifiiot_lite",
+        # "//vendor/hisi/hi3861/hi3861/third_party/lwip_sack/include",
+
+        # OpenHarmony 1.0+
+        "//utils/native/lite/include",
+        "//kernel/liteos_m/kal",
+        "//base/iothardware/peripheral/interfaces/inner_api",
+        "//foundation/communication/wifi_lite/interfaces/wifiservice",
+    ]
+
+    ohos_defines += [
+        "CMSIS"
+    ]
+
+    static_library("mqtt_test") {
+        cflags = ohos_cflags
+        defines = ohos_defines
+        sources = ohos_sources
+        include_dirs = ohos_includes
+    }
+} else {
+    ohos_sources += [
+        "mqtt_test_posix.c"
+    ]
+
+    deps = [
+        "../../src:paho-embed-mqtt3cc",
+        "../../../MQTTPacket/src:paho-embed-mqtt3c",
+    ]
+
+    executable("mqtt_test") {
+        cflags = ohos_cflags
+        defines = ohos_defines
+        sources = ohos_sources
+        include_dirs = ohos_includes
+    }
+}
