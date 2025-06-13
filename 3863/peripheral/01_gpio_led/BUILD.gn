@@ -1,0 +1,13 @@
+static_library("gpio_led") {
+    sources = [
+        "gpio_led.c"
+    ]
+    include_dirs = [
+        # include "ohos_init.h" for OpenHarmony5.0+
+        "//commonlibrary/utils_lite/include",
+        # include CMSIS-RTOS API V2 for OpenHarmony5.0+
+        "//kernel/liteos_m/kal/cmsis",
+        # include IoT硬件设备操作接口 for OpenHarmony5.0+：
+        "//base/iothardware/peripheral/interfaces/inner_api",
+    ]
+}

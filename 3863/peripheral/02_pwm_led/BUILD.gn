@@ -1,0 +1,20 @@
+static_library("pwm_led") {
+    sources = [
+        "pwm_led.c",
+    ]
+    include_dirs = [
+        # include "ohos_init.h" for OpenHarmony5.0+
+        "//commonlibrary/utils_lite/include",
+        # include CMSIS-RTOS API V2 for OpenHarmony5.0+
+        "//kernel/liteos_m/kal/cmsis",
+        # include IoT硬件设备操作接口 for OpenHarmony5.0+：
+        "//base/iothardware/peripheral/interfaces/inner_api",
+        # ws63 API
+        "//device/soc/hisilicon/ws63v100/sdk/include/driver",
+        "//device/soc/hisilicon/ws63v100/sdk/drivers/chips/ws63/rom/drivers/chips/ws63/porting/pinctrl",
+        # PWM API
+        "//device/soc/hisilicon/ws63v100/sdk/drivers/chips/ws63/porting/pwm",
+        # GPIO API
+        "//applications/sample/wifi-iot/3863/shared_drivers/gpio_ex",
+    ]
+}
